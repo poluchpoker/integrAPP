@@ -1,5 +1,6 @@
 from random import *
 from sympy import *
+import matplotlib.pyplot as plt
 
 from method_only_integral_and_method_integral_of_piece_res.generate_coefficient import *
 from method_only_integral_and_method_integral_of_piece_res.arrays_variable_and_symbols import *
@@ -9,7 +10,7 @@ from method_only_integral_and_method_integral_of_piece_res.calculate_func import
 from method_only_integral_and_method_integral_of_piece_res.clearing_lists import *
 
 
-def method_only_integral():
+def method_only_integral(variant):
     res_generate_exist_pol = generate_existence_degree_polynomial()
     res_generate_exist_polynomial = generate_existence_polynomial()
     res_generate_exist_triganometrix = generate_existence_triganometrix()
@@ -95,6 +96,7 @@ def method_only_integral():
                     generate_degree_for_polynomial()
 
                 generate_result_line()
+                convert_to_image(calc1(res_generate_exist_pol, res_generate_exist_polynomial, degree_for_polyn), variant)
                 return polynomial_calc(
                     res_generate_exist_pol,
                     res_generate_exist_polynomial,
@@ -202,6 +204,7 @@ def method_only_integral():
                     generate_coef_for_polynomial()
 
                 generate_result_line()
+                convert_to_image(calc1(res_generate_exist_pol, res_generate_exist_polynomial, 0), variant)
                 return polynomial_calc(
                     res_generate_exist_pol, res_generate_exist_polynomial, 0
                 )
@@ -236,13 +239,38 @@ def method_only_integral():
                 generate_exp_func(element_exp)
 
             generate_result_line()
+    convert_to_image(calc1(res_generate_exist_pol, res_generate_exist_polynomial, degree_for_polyn), variant)
     return calc(res_generate_exist_pol, res_generate_exist_polynomial, degree_for_polyn)
 
 
-def result_result():
+def result_result(variant):
     clearing_machine()
-    return method_only_integral()
+    return method_only_integral(variant)
 
+def convert_to_image(word, variant):
+    if variant:
+        if array_line_variable[0] < 0:
+            tex = f'$\\int_{-{array_line_variable[0]}}^{array_line_variable[1]} ({word}) dx$'
+        else:
+            tex = f'$\\int_{array_line_variable[0]}^{array_line_variable[1]} ({word}) dx$'
+    else:
+        tex = f'$\\int ({word}) dx$'
+
+    fig = plt.figure()
+    ax = fig.add_axes([0,0,1,1])
+    ax.set_axis_off()
+
+    t = ax.text(0.5, 0.5, tex,
+            horizontalalignment='center',
+            verticalalignment='center',
+            fontsize=20, color='black')
+            
+    ax.figure.canvas.draw()
+    bbox = t.get_window_extent()
+
+    fig.set_size_inches(bbox.width/80,bbox.height/80)
+
+    plt.savefig('/home/poluchpoker/myProjects/GUIapp/image/image.png', dpi=300)
 
 # def show_result():
 #     print(f"∫ ({method_only_integral()}) dx")
