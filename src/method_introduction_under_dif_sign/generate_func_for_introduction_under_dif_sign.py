@@ -62,9 +62,62 @@ def generate_polynom(trust_polynom, trust_variable, trust_constant, exist_degree
         return element
     else:
         return constant_for_res
+    
+def generate_polynom1(trust_polynom, trust_variable, trust_constant, exist_degree):
+    constant_for_res = generate_constant()
+    if trust_polynom == 1 and trust_constant == 1 and exist_degree == 0:
+        element = Symbol(f'{array_coef_for_polynom[0]}x + {constant_for_res}')
+        for number_element in range(1, len(array_coef_for_polynom)):
+            element += Symbol(f'{array_coef_for_polynom[number_element]}x')
+
+        return element
+    elif trust_polynom == 1 and trust_constant == 1 and exist_degree == 1:
+        element = Symbol(
+            f'{array_coef_for_polynom[0]}x^{array_degree_for_variable_polynom[0]} + {constant_for_res}'
+        )
+        for number_element in range(1, len(array_coef_for_polynom)):
+            element += Symbol(
+                f'{array_coef_for_polynom[number_element]}x^{array_degree_for_variable_polynom[number_element]}'
+            )
+
+        return element
+    elif trust_polynom == 1 and trust_constant == 0 and exist_degree == 1:
+        element = Symbol(f'{array_coef_for_polynom[0]}x^{array_degree_for_variable_polynom[0]}')
+        for number_element in range(1, len(array_coef_for_polynom)):
+            element += Symbol(
+                f'{array_coef_for_polynom[number_element]}x^{array_degree_for_variable_polynom[number_element]}'
+            )
+
+        return element
+    elif trust_polynom == 1 and trust_constant == 0 and exist_degree == 0:
+        element = Symbol(f'{array_coef_for_polynom[0]}x')
+        for number_element in range(1, len(array_coef_for_polynom)):
+            element += Symbol(f'{array_coef_for_polynom[number_element]}x')
+
+        return element
+    elif trust_variable == 1 and trust_constant == 1 and exist_degree == 0:
+        element = Symbol(f'{array_coef_for_polynom[0]}x + {constant_for_res}')
+
+        return element
+    elif trust_variable == 1 and trust_constant == 1 and exist_degree == 1:
+        degree = randint(1, 4)
+        element = Symbol(f'{array_coef_for_polynom[0]}x^{degree} + {constant_for_res}')
+
+        return element
+    elif trust_variable == 1 and trust_constant == 0 and exist_degree == 0:
+        element = Symbol(f'{array_coef_for_polynom[0]}x')
+
+        return element
+    elif trust_variable == 1 and trust_constant == 0 and exist_degree == 1:
+        degree = randint(1, 4)
+        element = Symbol(f'{array_coef_for_polynom[0]}x^{degree}')
+
+        return element
+    else:
+        return Symbol(f'{constant_for_res}')
 
 
-# генератор триг функции коэф-нт, степень, аргумент функции, результат для НЕ повторения функции
+"""генератор триг функции коэф-нт, степень, аргумент функции, результат для НЕ повторения функции"""
 def generate_trig_func_introduction_under_dif_sign(coef_trig, degree, variable, res):
     variant_triganometrix_variable = randint(1, 2)
 
@@ -74,8 +127,10 @@ def generate_trig_func_introduction_under_dif_sign(coef_trig, degree, variable, 
         or variant_triganometrix_variable == 2
         and res == 2
     ):
+        sin1 = Symbol(f'{coef_trig}sin(x)^{degree}')
         sinus = lambda x, coef_trig, degree: coef_trig * sin(x) ** degree
         array_trig.append(sinus(variable, coef_trig, degree))
+        array_trig1.append(sin1)
 
         return 1
     elif (
@@ -84,25 +139,33 @@ def generate_trig_func_introduction_under_dif_sign(coef_trig, degree, variable, 
         or variant_triganometrix_variable == 1
         and res == 1
     ):
+        cos1 = Symbol(f'{coef_trig}cos(x)^{degree}')
         cosinus = lambda x, coef_trig, degree: coef_trig * cos(x) ** degree
         array_trig.append(cosinus(variable, coef_trig, degree))
+        array_trig1.append(cos1)
 
         return 2
 
 
 # генератор экспоненты коэф-нт, аргумент экспоненты
 def generate_exp_func_introduction_under_dif_sign(coef_exp, variable):
+    exp1 = Symbol(f'{coef_exp}exp(x)')
     expanenta = lambda x, coef_exp: coef_exp * exp(x)
     array_exp.append(expanenta(variable, coef_exp))
+    array_exp1.append(exp1)
 
 
 # генератор логарифма коэф-нт, аргумент интеграла, основание
 def generate_logarim_func_introduction_under_dif_sign(coef_logarifm, variable, base):
+    log1 = Symbol(f'{coef_logarifm}log(x, {base})')
     logarifm = lambda x, coef_logarifm, base: coef_logarifm * log(x, base)
     array_log.append(logarifm(variable, coef_logarifm, base))
+    array_log1.append(log1)
 
 
 # генератор показательной функции основание степени, показатель степени
 def generate_pow_func_introduction_under_dif_sign(const, variable):
+    pow_func1 = Symbol(f'{const}^x')
     pow_func = lambda x, const: const**x
     array_pow.append(pow_func(variable, const))
+    array_pow1.append(pow_func1)
