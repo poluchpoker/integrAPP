@@ -30,7 +30,7 @@ array_expression = []
 array_line_variable = []
 
 x = symbols("x")
-amount_targers = randint(4, 10)
+amount_targers = randint(5, 7)
 float_or_int_degree_for_polyn = 1
 degree_for_polyn = 10
 if (float_or_int_degree_for_polyn):
