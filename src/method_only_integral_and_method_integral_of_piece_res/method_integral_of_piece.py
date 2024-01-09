@@ -4,8 +4,9 @@ from method_only_integral_and_method_integral_of_piece_res.generate_existense_va
 from method_only_integral_and_method_integral_of_piece_res.generate_func import *
 from method_only_integral_and_method_integral_of_piece_res.calculate_func import *
 from method_only_integral_and_method_integral_of_piece_res.clearing_lists import *
+import matplotlib.pyplot as plt
 
-def method_integral_of_piece():
+def method_integral_of_piece(variant):
     res_generate_exist_pol = generate_existence_degree_polynomial()
     res_generate_exist_polynomial = generate_existence_polynomial()
     res_generate_exist_triganometrix = generate_existence_triganometrix()
@@ -102,12 +103,40 @@ def method_integral_of_piece():
             generate_coef_for_argument_power_integral_of_piece()
             generate_power_func(0)
             generate_result_line()
+        convert_to_image(calc_of_piece1(res_generate_exist_pol, res_generate_exist_polynomial, degree_for_poly_method_integral_of_piece), variant)
         return calc_of_piece(res_generate_exist_pol, res_generate_exist_polynomial, degree_for_poly_method_integral_of_piece)
+    
+    convert_to_image(calc_of_piece1(res_generate_exist_pol, res_generate_exist_polynomial, 0), variant)
     return calc_of_piece(res_generate_exist_pol, res_generate_exist_polynomial, 0)
 
-def result_method_integral_of_piece():
+def result_method_integral_of_piece(variant):
     clearing_machine()
-    return method_integral_of_piece()
+    return method_integral_of_piece(variant)
+
+def convert_to_image(word, variant):
+    if variant:
+        if array_line_variable[0] < 0:
+            tex = f'$\\int_{-{array_line_variable[0]}}^{array_line_variable[1]} ({word}) dx$'
+        else:
+            tex = f'$\\int_{array_line_variable[0]}^{array_line_variable[1]} ({word}) dx$'
+    else:
+        tex = f'$\\int ({word}) dx$'
+
+    fig = plt.figure()
+    ax = fig.add_axes([0,0,1,1])
+    ax.set_axis_off()
+
+    t = ax.text(0.5, 0.5, tex,
+            horizontalalignment='center',
+            verticalalignment='center',
+            fontsize=20, color='black')
+            
+    ax.figure.canvas.draw()
+    bbox = t.get_window_extent()
+
+    fig.set_size_inches(bbox.width/80,bbox.height/80)
+
+    plt.savefig('/home/poluchpoker/myProjects/GUIapp/image/image.png', dpi=300)
 
 # def show_result():
 #     print(f"∫ ({method_integral_of_piece()}) dx")
