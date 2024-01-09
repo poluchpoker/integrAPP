@@ -92,59 +92,26 @@ def generate_degree_for_variable_func_polynom():
 
 
 # генератор пределов интеграла
-def generate_line(result, float_or_int_line):
-    if result == 0:
-        if float_or_int_line:
-            res_line = randint(-100, 100)
+def generate_line(result):
+    if (result == 0):
+        res_line = randint(1, 6)
 
-            while res_line == 0:
-                res_line = randint(-100, 100)
-        else:
-            res_line = uniform(-9.99, 9.99)
-
-            while res_line == 0.0:
-                res_line = uniform(-9.99, 9.99)
-
-            res_line = round(res_line, 2)
+        while (res_line == 0):
+            res_line = randint(1, 6)
     else:
-        if float_or_int_line:
-            res_line = randint(result, result + 100)
+        res_line = randint(result, 10)
 
-            while res_line == 0:
-                res_line = randint(result, result + 100)
-        else:
-            res_line = uniform(result, result + 9.99)
-
-            while res_line == 0.0:
-                res_line = uniform(result, result + 9.99)
-
-            res_line = round(res_line, 2)
+        while (res_line == 0):
+            res_line = randint(result, 10)
     return res_line
 
-
-# генератор пределов интеграла
 def generate_result_line():
-    variant_line = randint(0, 1)
-    float_or_int_line = randint(0, 1)
+    low_line = generate_line(0)
+    high_line = generate_line(low_line)
 
-    if variant_line:
-        low_line = generate_line(0, float_or_int_line)
-        high_line = generate_line(low_line, float_or_int_line)
+    while (low_line == high_line):
+        low_line = generate_line(0)
+        high_line = generate_line(low_line)
 
-    else:
-        result_variante = randint(-8, -1)
-
-        while (
-            result_variante % 2 == 1
-            and result_variante % 3 == 1
-            and result_variante != 3
-        ):
-            result_variante = randint(-8, -1)
-
-        result_variante = pi / result_variante
-
-        low_line = result_variante
-        high_line = result_variante * (-1)
-
-    array_line.append(low_line)
-    array_line.append(high_line)
+    array_line_variable.append(low_line)
+    array_line_variable.append(high_line)
